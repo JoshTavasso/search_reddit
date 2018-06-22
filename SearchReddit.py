@@ -19,8 +19,8 @@ all of the posts on the subreddit every 10 seconds.
 
 '''
 
-import praw # Reddit built-in library
-from time import sleep # For putting the bot to sleep
+import praw
+from time import sleep
 
 # The setup:
 
