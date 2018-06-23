@@ -109,14 +109,22 @@ def rest(t: 'time in seconds') -> None:
 	sleep(t)
 	print('running again..')
 
-def main():
-	''' The main function which sets up the bot and 
-		runs it
+def getInput() -> tuple:
+	'''Retrieves the user input and
+		returns it
 	'''
 	name = input('Input a username to send the submissions to: ')
 	subreddits = getSubReddit()
 	key_words = getKeyWords()
 	time_to_sleep = int(input('Please specify how long the bot should sleep after each search, in seconds (ex: 10 for 10 seconds): '))
+
+	return name,subreddits,key_words,time_to_sleep
+
+def main():
+	''' The main function which sets up the bot and 
+		runs it
+	'''
+	name, subreddits, key_words, time_to_sleep = getInput()
 
 	while True:
 		try:
@@ -132,3 +140,4 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
