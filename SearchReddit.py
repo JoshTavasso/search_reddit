@@ -1,5 +1,5 @@
 # jtavasso 6/19/2018
-# Searching For Wanted Reddit posts
+# Searching For Wanted Reddit Posts
 
 '''
 A bot that searches through one or more subreddits, 
