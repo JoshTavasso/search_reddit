@@ -2,7 +2,7 @@
 # Searching For Wanted Reddit Posts
 
 '''
-A practice bot. First try at API.
+A practice bot. First try with API.
 
 A bot that searches through one or more subreddits, 
 looking for specified keywords in the subreddit submissions. 
