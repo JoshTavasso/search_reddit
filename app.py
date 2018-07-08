@@ -35,11 +35,22 @@ from init import REDDIT
 # user related functions
 import user
 
+# for putting the bot to sleep
+from time import sleep
+
 '''
 list of submissions to be used to prevent
 sending duplicate submissions
 '''
 SUBMISSIONS = []
+
+def rest(t: 'time in seconds') -> None:
+	''' Puts the bot to sleep for a certain
+		amount of seconds
+	'''
+	print('going to sleep for {} seconds...'.format(t))
+	sleep(t)
+	print('running again..')
 
 def process_message(name: str, sub: 'url', subject: str) -> None:
 	''' Given a redditor username, url to a submission, sends
@@ -91,7 +102,7 @@ def main():
 	while True:
 		try:
 			run(name, subreddits, key_words)
-			user.rest(time_to_sleep)
+			rest(time_to_sleep)
 
 		except KeyboardInterrupt:
 			return user.end()

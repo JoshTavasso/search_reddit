@@ -5,7 +5,6 @@ User related functions
 
 import praw
 from init import REDDIT
-from time import sleep
 
 def end() -> None:
 	''' Prints the message for terminating
@@ -13,14 +12,6 @@ def end() -> None:
 	'''
 	print('\nTERMINATING BOT')
 	print('bye!')
-
-def rest(t: 'time in seconds') -> None:
-	''' Puts the bot to sleep for a certain
-		amount of seconds
-	'''
-	print('going to sleep for {} seconds...'.format(t))
-	sleep(t)
-	print('running again..')
 
 def get_subreddit() -> 'subreddit':
 	''' Asks the user to enter what subreddits
