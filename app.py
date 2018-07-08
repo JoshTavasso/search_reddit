@@ -41,7 +41,7 @@ sending duplicate submissions
 '''
 SUBMISSIONS = []
 
-def processMessage(name: str, sub: 'url', subject: str) -> None:
+def process_message(name: str, sub: 'url', subject: str) -> None:
 	''' Given a redditor username, url to a submission, sends
 		a message to the username using the given subject parameter
 		as the subject of the message and the url as the message
@@ -50,7 +50,7 @@ def processMessage(name: str, sub: 'url', subject: str) -> None:
 	REDDIT.redditor(name).message(subject, sub.url)
 	print('Message sent to:', name, 'regarding:', sub.title)
 
-def checkWordAndSendMessage(name: str, sub: 'submission', key_words: list) -> None:
+def check_word_and_send(name: str, sub: 'submission', key_words: list) -> None:
 	''' iterates through the key words given and checks
 		if the word is in the submission title. If it is, we send 
 		the message to the given username.
@@ -58,15 +58,15 @@ def checkWordAndSendMessage(name: str, sub: 'submission', key_words: list) -> No
 	for word in key_words:
 		try:
 			if word in sub.title:
-				processMessage(name, sub, sub.title)
+				process_message(name, sub, sub.title)
 
 		except praw.exceptions.APIException:
-			processMessage(name, sub, "Post that you wanted, but title was too long!")
+			process_message(name, sub, "Post that you wanted, but title was too long!")
 
 		except:
 			print('Unexpected Error, continuing onwards')
 
-def runBot(name: str, subreddits: 'subreddits', key_words: list) -> None:
+def run(name: str, subreddits: 'subreddits', key_words: list) -> None:
 	''' Iterates through the first 100 submissions in the 'new' 
 		category of the given subreddits, checks if the key
 		words are in the submission title and sends a message
@@ -75,7 +75,7 @@ def runBot(name: str, subreddits: 'subreddits', key_words: list) -> None:
 	for sub in subreddits.new(): # iterating through first 100 subs in the 'new' category
 		try:
 			if sub not in SUBMISSIONS:
-				checkWordAndSendMessage(name,sub,key_words)
+				check_word_and_send(name,sub,key_words)
 		except:
 			print('Unexpected Error, continuing onwards')
 
@@ -86,11 +86,11 @@ def main():
 	''' The main function which sets up the bot and 
 		runs it
 	'''
-	name, subreddits, key_words, time_to_sleep = user.getInput()
+	name, subreddits, key_words, time_to_sleep = user.get_input()
 
 	while True:
 		try:
-			runBot(name, subreddits, key_words)
+			run(name, subreddits, key_words)
 			user.rest(time_to_sleep)
 
 		except KeyboardInterrupt:
