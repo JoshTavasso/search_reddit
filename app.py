@@ -1,6 +1,9 @@
-# Searching For Wanted Reddit posts
+# jtavasso 6/19/2018
+# Searching For Wanted Reddit Posts
 
 '''
+A practice bot. First try at API.
+
 A bot that searches through one or more subreddits, 
 looking for specified keywords in the subreddit submissions. 
 If the keywords are found, the post is sent to a specified user, 
@@ -26,18 +29,11 @@ installing the praw module
 '''
 import praw
 
-# For putting the bot to sleep
-from time import sleep
+# get the reddit api object
+from init import REDDIT
 
-# The setup:
-
-CLIENT = 'Fill in client id here'
-SECRET = 'Fill in secret id here'
-BOT_NAME = 'Fill in your bot name'
-BOT_PASSWORD = 'Fill in your bot password'
-AGENT = 'Fill in whatever you want'
-
-REDDIT = praw.Reddit(client_id = CLIENT, client_secret = SECRET, username = BOT_NAME, password = BOT_PASSWORD, user_agent = AGENT)
+# user related functions
+import user
 
 '''
 list of submissions to be used to prevent
@@ -86,71 +82,24 @@ def runBot(name: str, subreddits: 'subreddits', key_words: list) -> None:
 		finally:
 			SUBMISSIONS.append(sub)
 
-def getSubReddit() -> 'subreddit':
-	''' Asks the user to enter what subreddits
-		they would like this bot to search in.
-		Returns a subreddit object
-	'''
-	subreddit = input('Enter subreddits to search in, seperated by spaces (ex: UCI Apple): ')
-	subs = subreddit.split()
-	return REDDIT.subreddit('+'.join(subs))
-
-def getKeyWords() -> list:
-	''' Asks the user to enter some keywords to
-		look for and returns a list of those keywords
-	'''
-	data_input = input('Enter some keywords to look for, seperated by spaces (ex: pokemon smash): ')
-	return data_input.split()
-
-def end() -> None:
-	''' Prints the message for terminating
-		the bot
-	'''
-	print('\nTERMINATING BOT')
-	print('bye!')
-
-def rest(t: 'time in seconds') -> None:
-	''' Puts the bot to sleep for a certain
-		amount of seconds
-	'''
-	print('going to sleep for {} seconds...'.format(t))
-	sleep(t)
-	print('running again..')
-
-def getInput() -> tuple:
-	'''Retrieves the user input and
-		returns it
-	'''
-	name = input('Input a username to send the submissions to: ')
-	subreddits = getSubReddit()
-	key_words = getKeyWords()
-	time_to_sleep = int(input('Please specify how long the bot should sleep after each search, in seconds (ex: 10 for 10 seconds): '))
-
-	return name,subreddits,key_words,time_to_sleep
-
 def main():
 	''' The main function which sets up the bot and 
 		runs it
 	'''
-	name, subreddits, key_words, time_to_sleep = getInput()
+	name, subreddits, key_words, time_to_sleep = user.getInput()
 
 	while True:
 		try:
 			runBot(name, subreddits, key_words)
-			rest(time_to_sleep)
+			user.rest(time_to_sleep)
 
 		except KeyboardInterrupt:
-			return end()
+			return user.end()
 
 		except:
 			print('Oh no! A strange error occured. Your internet must be down..')
 
 	
 if __name__ == '__main__':
-	'''
-	call main once you have finished the setup
-	the setup
-	'''
-	#main()
+	main()
 
-	pass
