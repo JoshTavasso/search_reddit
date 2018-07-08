@@ -44,14 +44,6 @@ sending duplicate submissions
 '''
 SUBMISSIONS = []
 
-def rest(t: 'time in seconds') -> None:
-	''' Puts the bot to sleep for a certain
-		amount of seconds
-	'''
-	print('going to sleep for {} seconds...'.format(t))
-	sleep(t)
-	print('running again..')
-
 def process_message(name: str, sub: 'url', subject: str) -> None:
 	''' Given a redditor username, url to a submission, sends
 		a message to the username using the given subject parameter
@@ -102,13 +94,17 @@ def main():
 	while True:
 		try:
 			run(name, subreddits, key_words)
-			rest(time_to_sleep)
 
 		except KeyboardInterrupt:
 			return user.end()
 
 		except:
 			print('Oh no! A strange error occured. Your internet must be down..')
+
+		else:
+			print('going to sleep for {} seconds...'.format(time_to_sleep))
+			sleep(time_to_sleep)
+			print('running again..')
 
 	
 if __name__ == '__main__':
