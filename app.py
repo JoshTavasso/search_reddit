@@ -20,12 +20,7 @@ specified number of seconds after each search.
 '''
 
 '''
-Reddit Python library. Install 
-by opening up terminal and entering
-the command: sudo install praw
-
-Or, you can find another method of 
-installing the praw module
+Reddit Python library.
 '''
 import praw
 
