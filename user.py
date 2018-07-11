@@ -4,7 +4,7 @@ User related functions
 '''
 
 import praw
-from init import REDDIT
+from config import REDDIT
 
 def end() -> None:
 	''' Prints the message for terminating

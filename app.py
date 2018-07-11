@@ -25,7 +25,7 @@ Reddit Python library.
 import praw
 
 # get the reddit api object
-from init import REDDIT
+from config import REDDIT
 
 # user related functions
 import user
