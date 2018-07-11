@@ -19,16 +19,17 @@ specified number of seconds after each search.
 
 '''
 
-'''
-Reddit Python library.
-'''
+# reddit python library
 import praw
 
 # get the reddit api object
-from config import REDDIT
+from utility.config import REDDIT
+
+# function for sending reddit message
+from utility.reddit_functions import check_word_and_send
 
 # user related functions
-import user
+import utility.user as user
 
 # for putting the bot to sleep
 from time import sleep
@@ -39,32 +40,7 @@ sending duplicate submissions
 '''
 SUBMISSIONS = []
 
-def process_message(name: str, sub: 'url', subject: str) -> None:
-	''' Given a redditor username, url to a submission, sends
-		a message to the username using the given subject parameter
-		as the subject of the message and the url as the message
-		body
-	''' 
-	REDDIT.redditor(name).message(subject, sub.url)
-	print('Message sent to:', name, 'regarding:', sub.title)
-
-def check_word_and_send(name: str, sub: 'submission', key_words: list) -> None:
-	''' iterates through the key words given and checks
-		if the word is in the submission title. If it is, we send 
-		the message to the given username.
-	'''
-	for word in key_words:
-		try:
-			if word in sub.title:
-				process_message(name, sub, sub.title)
-
-		except praw.exceptions.APIException:
-			process_message(name, sub, "Post that you wanted, but title was too long!")
-
-		except:
-			print('Unexpected Error, continuing onwards')
-
-def run(name: str, subreddits: 'subreddits', key_words: list) -> None:
+def search(name: str, subreddits: 'subreddits', key_words: list) -> None:
 	''' Iterates through the first 100 submissions in the 'new' 
 		category of the given subreddits, checks if the key
 		words are in the submission title and sends a message
@@ -88,18 +64,16 @@ def main():
 
 	while True:
 		try:
-			run(name, subreddits, key_words)
+			search(name, subreddits, key_words)
+			print('going to sleep for {} seconds...'.format(time_to_sleep))
+			sleep(time_to_sleep)
+			print('running again..')
 
 		except KeyboardInterrupt:
 			return user.end()
 
 		except:
 			print('Oh no! A strange error occured. Your internet must be down..')
-
-		else:
-			print('going to sleep for {} seconds...'.format(time_to_sleep))
-			sleep(time_to_sleep)
-			print('running again..')
 
 	
 if __name__ == '__main__':

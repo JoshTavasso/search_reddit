@@ -1,10 +1,11 @@
 '''
 user.py
+
 User related functions
 '''
 
 import praw
-from config import REDDIT
+from utility.config import REDDIT
 
 def end() -> None:
 	''' Prints the message for terminating

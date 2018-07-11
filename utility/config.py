@@ -1,7 +1,6 @@
-'''
-init.py
-Setting up the Reddit API
-'''
+# contains reddit api information
+
+# reddit python library
 import praw
 
 CLIENT = 'NkTmzbz9_Akg5w'
