@@ -23,13 +23,13 @@ specified number of seconds after each search.
 import praw
 
 # get the reddit api object
-from utility.config import REDDIT
+from reddit.config import REDDIT
 
-# function for sending reddit message
-from utility.reddit_functions import check_word_and_send
+# functions for sending message and getting desired subreddits
+from reddit.functions import get_subreddit_list, check_word_and_send
 
 # user related functions
-import utility.user as user
+from ui import user
 
 # for putting the bot to sleep
 from time import sleep
@@ -60,7 +60,8 @@ def main():
 	''' The main function which sets up the bot and 
 		runs it
 	'''
-	name, subreddits, key_words, time_to_sleep = user.get_input()
+	name, sub_input, key_words, time_to_sleep = user.get_input()
+	subreddits = get_subreddit_list(sub_input)
 
 	while True:
 		try:
@@ -73,7 +74,7 @@ def main():
 			return user.end()
 
 		except:
-			print('Oh no! A strange error occured. Your internet must be down..')
+			print('A strange error occured. Your internet must be down..')
 
 	
 if __name__ == '__main__':

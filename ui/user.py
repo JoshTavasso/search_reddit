@@ -4,26 +4,14 @@ user.py
 User related functions
 '''
 
-import praw
-from utility.config import REDDIT
-
-def end() -> None:
-	''' Prints the message for terminating
-		the bot
-	'''
-	print('\nTERMINATING BOT')
-	print('bye!')
-
-def get_subreddit() -> 'subreddit':
+def _get_subreddit_input() -> str:
 	''' Asks the user to enter what subreddits
-		they would like this bot to search in.
-		Returns a subreddit object
+		they would like this bot to search in
+		and returns the input
 	'''
-	subreddit = input('Enter subreddits to search in, seperated by spaces (ex: UCI Apple): ')
-	subs = subreddit.split()
-	return REDDIT.subreddit('+'.join(subs))
+	return input('Enter subreddits to search in, seperated by spaces (ex: UCI Apple): ')
 
-def get_key_words() -> list:
+def _get_key_words() -> list:
 	''' Asks the user to enter some keywords to
 		look for and returns a list of those keywords
 	'''
@@ -35,9 +23,16 @@ def get_input() -> tuple:
 		returns it
 	'''
 	name = input('Input a username to send the submissions to: ')
-	subreddits = get_subreddit()
-	key_words = get_key_words()
+	subreddit_input = _get_subreddit_input()
+	key_words = _get_key_words()
 	time_to_sleep = int(input('Please specify how long the bot should sleep after each search, in seconds (ex: 10 for 10 seconds): '))
 
-	return name,subreddits,key_words,time_to_sleep
+	return name,subreddit_input,key_words,time_to_sleep
+
+def end() -> None:
+	''' Prints the message for terminating
+		the bot
+	'''
+	print('\nTERMINATING BOT')
+	print('bye!')
 

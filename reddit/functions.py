@@ -1,5 +1,5 @@
 '''
-reddit_functions.py
+functions.py
 
 reddit related functions
 '''
@@ -8,7 +8,7 @@ reddit related functions
 import praw
 
 # reddit api object
-from utility.config import REDDIT
+from reddit.config import REDDIT
 
 def _process_message(name: str, sub: 'url', subject: str) -> None:
 	''' Given a redditor username, url to a submission, sends
@@ -18,6 +18,15 @@ def _process_message(name: str, sub: 'url', subject: str) -> None:
 	''' 
 	REDDIT.redditor(name).message(subject, sub.url)
 	print('Message sent to:', name, 'regarding:', sub.title)
+
+
+def get_subreddit_list(sub_input: str) -> 'subreddit generator':
+	''' Given a string containing subreddits, 
+		separated by spaces, returns a subreddit
+		list generator
+	'''
+	subs = sub_input.split()
+	return REDDIT.subreddit('+'.join(subs))
 
 def check_word_and_send(name: str, sub: 'submission', key_words: list) -> None:
 	''' iterates through the key words given and checks
