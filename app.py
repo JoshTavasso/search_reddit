@@ -29,7 +29,7 @@ from reddit.config import REDDIT
 from reddit.functions import get_subreddit_list, check_word_and_send
 
 # user related functions
-from ui import user
+from ui.user import end, get_input
 
 # for putting the bot to sleep
 from time import sleep
@@ -60,7 +60,7 @@ def main():
 	''' The main function which sets up the bot and 
 		runs it
 	'''
-	name, sub_input, key_words, time_to_sleep = user.get_input()
+	name, sub_input, key_words, time_to_sleep = get_input()
 	subreddits = get_subreddit_list(sub_input)
 
 	while True:
@@ -71,7 +71,7 @@ def main():
 			print('running again..')
 
 		except KeyboardInterrupt:
-			return user.end()
+			return end()
 
 		except:
 			print('A strange error occured. Your internet must be down..')
