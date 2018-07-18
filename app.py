@@ -23,13 +23,13 @@ specified number of seconds after each search.
 import praw
 
 # get the reddit api object
-from reddit.config import REDDIT
+from modules.reddit.config import REDDIT
 
 # functions for sending message and getting desired subreddits
-from reddit.functions import get_subreddit_list, check_word_and_send
+from modules.reddit.functions import get_subreddit_list, check_word_and_send
 
 # user related functions
-from ui.user import end, get_input
+from modules.ui.user import end, get_input
 
 # for putting the bot to sleep
 from time import sleep

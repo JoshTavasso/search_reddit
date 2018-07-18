@@ -8,7 +8,7 @@ reddit related functions
 import praw
 
 # reddit api object
-from reddit.config import REDDIT
+from modules.reddit.config import REDDIT
 
 def _process_message(name: str, sub: 'url', subject: str) -> None:
 	''' Given a redditor username, url to a submission, sends
